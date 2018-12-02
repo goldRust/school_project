@@ -1,6 +1,6 @@
 class Student:
 
-
+    classes = []
 
     def __init__(self, lname, fname, pwrs_id):
         self.lname = lname
@@ -22,6 +22,14 @@ class Student:
             i = 0
             i += 1
             print(i, ": ", cl)
+
+    def add_class(self, cl):
+        if cl not in self.classes:
+            self.classes.append(cl)
+        else:
+            print(self.fname + " is already in " + cl + ".")
+
+
     behavior = []
     zap = []
     dob = ''

@@ -99,6 +99,48 @@ def clear():
         if confirm == 'y':
             clr.clear()
 
+def get_student_by_id():
+    pwrs_id = input("Enter student's PowerSchool Id Number:")
+    for stud in students:
+        if pwrs_id == stud.pwrs_id:
+            return stud
+    return "Student not found."
+
+
+def get_student_by_fl():
+    fl = " " + input("Enter student's first and last name:")
+    for stud in students:
+        if fl == stud.fname + ' ' + stud.lname:
+            return stud
+    return "Student not found."
+
+
+def students_by_class(cl):
+    class_roster = []
+    for student in students:
+        if cl in student:
+            pass
+
+
+def student_lookup():
+    s_l = {'1' : ('Look up by PowerSchool Id Number', get_student_by_id),
+           '2': ('Look up by first and last name', get_student_by_fl),
+           '3' : ('Finished', 'done')}
+
+    for item in sorted(s_l.keys()):
+        print(item + ":" + s_l[item][0])
+
+    ans = input("Make a selection:")
+
+    found = False
+
+    while not found:
+        student = s_l.get(ans)[1]()
+        print("======================================")
+        print(student)
+        print("======================================")
+        if type(student) == Student:
+            found = True
 
 def gen_report(rep):
     print('======================================')
@@ -109,14 +151,33 @@ def gen_report(rep):
         print("======================================")
 
 
+def edit_student():
+
+    stud = get_student_by_fl()
+    ed_men = {'1': ('Add class.', stud.add_class),
+              '2': ('Add parent.', get_student_by_fl),
+              '3': ('Finished', 'done')}
+
+    for item in sorted(ed_men.keys()):
+        print(item + ":" + ed_men[item][0])
+
+    ans = input("Make a selection:")
+
+    if ans == "1":
+        print("Add Class")
+        cl = input("Class:")
+        ed_men.get(ans)[1](cl)
+
+
 menu = {'1': ('New Behavior Report', create_behavior),
         '2': ('New Zap Report', create_zap),
-        '3': ('Add new student', add_student),
-        '4': ('Import Students from CSV', import_students),
-        '5': ('Add new teacher', add_teacher),
-        '6': ('Generate Report', report),
-        '7': ('Clear List', clear),
-        '8': ('Quit', pro_exit)}
+        '3': ('Lookup Student', student_lookup),
+        '4': ('Edit Student', edit_student),
+        '5': ('Import Students from CSV', import_students),
+        '6': ('Add new teacher', add_teacher),
+        '7': ('Generate Report', report),
+        '8': ('Clear List', clear),
+        '9': ('Quit', pro_exit)}
 
 run = True
 
