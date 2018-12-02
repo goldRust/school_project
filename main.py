@@ -84,13 +84,28 @@ def report():
     if rep != 'done':
         gen_report(rep)
 
+def clear():
+    clr_men = {'1': ("Erase all teachers", teachers),
+               '2': ("Erase all students", students),
+               '3': ('Return to main menu', 'done')}
+    for item in sorted(clr_men.keys()):
+        print(item + ': ' + clr_men[item][0])
+
+    clr_ans = input("Make a selection:")
+    clr = clr_men.get(clr_ans)[1]
+    if clr != 'done':
+        confirm = input("This action will erase all items in this group. Are you sure you want to do that? (y/n)")
+
+        if confirm == 'y':
+            clr.clear()
+
 
 def gen_report(rep):
     print('======================================')
     i = 0
     for things in rep:
         i += 1
-        print(str(i)+':' + things.lname + ", " + things.fname)
+        print(things)
         print("======================================")
 
 
@@ -100,7 +115,8 @@ menu = {'1': ('New Behavior Report', create_behavior),
         '4': ('Import Students from CSV', import_students),
         '5': ('Add new teacher', add_teacher),
         '6': ('Generate Report', report),
-        '7': ('Quit', pro_exit)}
+        '7': ('Clear List', clear),
+        '8': ('Quit', pro_exit)}
 
 run = True
 

@@ -15,7 +15,7 @@ class Student:
         return self.pwrs_id == other.pwrs_id
 
     def __repr__(self):
-        return 'student({})'.format(self.pwrs_id)
+        return 'Name {}'.format(self.fname + " " + self.lname) + '\nId: {}'.format(self.pwrs_id)
 
     def get_classes(self):
         for cl in self.classes:
